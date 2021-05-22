@@ -31,3 +31,11 @@ pre {
     padding: 16px;
     background: rgba(0, 0, 0, 0.125);
 }
+
+header {
+    display: flex;
+}
+
+header > div {
+    flex-grow: 1;
+}
