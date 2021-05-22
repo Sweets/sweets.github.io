@@ -29,7 +29,7 @@
 				<br>
 				Alright, no big deal, what's the cause?
 			</p>
-			<pre>./shutdown.c:67:9: warning: implicit declaration of function ‘getentropy’ [-Wimplicit-function-declaration]</pre>
+			<pre>./shutdown.c:67:9: error: implicit declaration of function ‘getentropy’ [-Werror=implicit-function-declaration]</pre>
 			<p>
 				What? getentropy() is absolutely defined, has been since <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html#VERSIONS" target="_blank">glib 2.25</a>, which was back in 2017 for fuck's sake.
 				<br>
