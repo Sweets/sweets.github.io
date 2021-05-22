@@ -3,7 +3,7 @@ body {
     margin: 0;
 }
 
-a:href, a:visited, a:hover {
+a:link, a:visited, a:hover {
     text-decoration: none;
     font-style: italic;
     color: #000;
