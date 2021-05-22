@@ -15,3 +15,8 @@ a:link {
     color: #000;
     border-bottom: 1px dotted;
 }
+
+hr {
+    border: none;
+    border-bottom: 1px solid;
+}
