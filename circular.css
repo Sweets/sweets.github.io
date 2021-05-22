@@ -17,4 +17,5 @@ a#all {
 
 a#prev {
     order: -1;
+    margin-left: auto;
 }
