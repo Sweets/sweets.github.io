@@ -13,5 +13,8 @@ a:link {
 
 a#all {
     margin: 0 16px;
+}
+
+a#prev {
     order: -1;
 }
