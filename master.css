@@ -9,7 +9,7 @@ h3 > span:first-child {
     font-family: monospace;
 }
 
-a:link {
+a:link, a:visited, a:hover {
     text-decoration: none;
     font-style: italic;
     color: #000;
