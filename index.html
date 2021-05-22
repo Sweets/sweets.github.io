@@ -11,7 +11,7 @@
 		<hr>
 		<a id="0x02"></a>
 		<article>
-			<h3><span>0x02</span> &mdash; <i>venting about glibc 2.25</i></h3>
+			<h3><span>0x02</span> &mdash; <i>syscall(SYS_getrandom, ...);</i></h3>
 			<p>
 				So the other day I was working on hummingbird's shutdown sequence.
 				<br>
@@ -33,7 +33,17 @@
 			<p>
 				What? getentropy() is absolutely defined, since <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html#VERSIONS" target="_blank">glib 2.25</a>, which was back in 2017 for fuck's sake.
 				<br>
-				Apparently that's not good enough. It's 2021, glibc 2.25 was released in 2017, over 4 years ago by now. <i>Update your packages, maintainers.</i>
+				Apparently that's not good enough. It's 2021, glibc 2.25 was released in 2017, over 4 years ago by now.
+				<br>
+				<br>
+				So in the end I changed the getentropy() call to syscall() to SYS_getrandom.
+				<br>
+				Should I have banked on people using glibc >2.25 in the first place? Probably not.
+				<br>
+				Realistically, though, I should expect that by now people would be.
+				<br>
+				<br>
+				<i>Maintain your goddamn packages.</i>
 			</p>
 		</article>
 		<hr>
