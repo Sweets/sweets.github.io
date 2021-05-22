@@ -13,4 +13,5 @@ a:link {
 
 a#all {
     margin: 0 16px;
+    order: -1;
 }
