@@ -1,6 +1,15 @@
+body {
+    display: flex;
+}
+
 a:link {
     text-decoration: none;
     font-style: italic;
     color: #000;
     border-bottom: 1px dotted;
+    text-transform: lowercase;
+}
+
+a#all {
+    margin: 0 16px;
 }
