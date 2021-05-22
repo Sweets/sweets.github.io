@@ -20,3 +20,8 @@ hr {
     border: none;
     border-bottom: 1px solid;
 }
+
+iframe {
+    border: none;
+    height: 34px;
+}
