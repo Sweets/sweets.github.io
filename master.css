@@ -1,4 +1,15 @@
 body {
-    background: #ffe2b8;
+    background: #fbfbfb;
     color: #383838;
+}
+
+h3 > span:first-child {
+    font-family: monospace;
+}
+
+a:link {
+    text-decoration: none;
+    font-style: italic;
+    color: #000;
+    border-bottom: 1px dotted;
 }
