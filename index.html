@@ -31,9 +31,9 @@
 			</p>
 			<pre>./shutdown.c:67:9: warning: implicit declaration of function ‘getentropy’ [-Wimplicit-function-declaration]</pre>
 			<p>
-				What? getentropy() is absolutely defined, since <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html#VERSIONS" target="_blank">glib 2.25</a>, which was back in 2017 for fuck's sake.
+				What? getentropy() is absolutely defined, has been since <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html#VERSIONS" target="_blank">glib 2.25</a>, which was back in 2017 for fuck's sake.
 				<br>
-				Apparently that's not good enough. It's 2021, glibc 2.25 was released in 2017, over 4 years ago by now.
+				Apparently that's not good enough. It's 2021, glibc 2.25 was released over 4 years ago by now.
 				<br>
 				<br>
 				So in the end I changed the getentropy() call to syscall() to SYS_getrandom.
