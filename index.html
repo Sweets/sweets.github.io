@@ -16,9 +16,7 @@
 		<article>
 			<h3><span>0x02</span> &mdash; <i>__always_inline, linux, and muslc</i></h3>
 			<p>
-				If you're trying to install <a href="https://k1sslinux.org" target="_blank">kiss linux</a> with a linux 5.x kernel,
-				<br>
-				you may find that you'll run into an error trying to build the kernel.
+				If you're trying to install <a href="https://k1sslinux.org" target="_blank">kiss linux</a> (or any non-glibc distribution) with a linux 5.x kernel, you may find that you'll run into an error trying to build the kernel.
 			</p>
 			<pre>/usr/include/linux/byteorder/little_endian.h:44:8: error: unknown type name '__always_inline'</pre>
 			<p>
@@ -29,8 +27,8 @@
 				<br>
 				So, as a quick fix, open up /usr/include/linux/swab.h in your flavor of text editor, and include linux/stddef.h just below linux/types.h.
 			</p>
-			<pre>#include <linux/types.h>
-#include <linux/stddef.h>
+			<pre>#include &lt;linux/types.h&gt;
+#include &lt;linux/stddef.h&gt;
 			</pre>
 			<p>
 				With that, try to build again and you should be up an running.
