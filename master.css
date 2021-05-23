@@ -1,6 +1,6 @@
 body {
-    background: #fbfbfb;
-    color: #383838;
+    background: #171717;
+    color: #5a5a5a;
     width: 80%;
     margin: auto;
 }
@@ -12,7 +12,7 @@ h3 > span:first-child {
 a:link, a:visited, a:hover {
     text-decoration: none;
     font-style: italic;
-    color: #000;
+    color: #5a5a5a;
     border-bottom: 1px dotted;
 }
 
