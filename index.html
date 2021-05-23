@@ -22,14 +22,13 @@
 			<p>
 				On a system running glibc, this isn't particularly an issue; __always_inline is defined.
 				<br>
-				This isn't the case on systems that are using <a href="https://www.musl-libc.org/" target="_blank">musl</a>, or other libc's, though.
+				This isn't the case on systems that are using <a href="https://www.musl-libc.org/" target="_blank">musl</a> or other libc's though.
 				<br>
 				<br>
 				So, as a quick fix, open up /usr/include/linux/swab.h in your flavor of text editor, and include linux/stddef.h just below linux/types.h.
 			</p>
 			<pre>#include &lt;linux/types.h&gt;
-#include &lt;linux/stddef.h&gt;
-			</pre>
+#include &lt;linux/stddef.h&gt;</pre>
 			<p>
 				With that, try to build again and you should be up an running.
 				<br>
