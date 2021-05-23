@@ -6,7 +6,7 @@ body {
 a:link, a:visited, a:hover {
     text-decoration: none;
     font-style: italic;
-    color: #757575;
+    color: #858585;
     border-bottom: 1px dotted;
     text-transform: lowercase;
 }
