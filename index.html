@@ -8,45 +8,15 @@
 	</head>
 	<body>
 		<header>
-			<div><a href="#0x01">hi im sweets</a></div>
+			<div><a href="#0x01">sweets</a></div>
 			<iframe sandbox="allow-scripts allow-top-navigation" loading=lazy src="https://circle.comfi.es/f/sweets.github.io/"></iframe>
 		</header>
 		<hr>
 		<a id="0x02"></a>
 		<article>
-			<h3><span>0x02</span> &mdash; <i>syscall(SYS_getrandom, ...);</i></h3>
+			<h3><span>0x02</span> &mdash; <i>coming soon</i></h3>
 			<p>
-				So the other day I was working on hummingbird's shutdown sequence.
-				<br>
-				Specifically, I was working on <a href="https://github.com/Sweets/hummingbird/blob/master/src/shutdown.c#L67" target="_blank">seed_rng_device()</a>, the function that creates a seed for the RNG for the next boot.
-				<br>
-				In the call to seed_rng_device(), a seed is allocated 512 bytes for sufficient entropy to seed on next boot. The allocation call is done, and immediately after, the getrandom() call.
-				<br>
-				<br>
-				All is well, for the most part. I opt to use getentropy(), which is included in sys/random.h, mostly as a convenience.
-				<br>
-				Finish working on the method, git add, git commit, push, and done. Wash my hands of the problem for a little bit.
-				<br>
-				<br>
-				Until I get a little bit of a heads up from a friend that the hummingbird build fails.
-				<br>
-				Alright, no big deal, what's the cause?
-			</p>
-			<pre>./shutdown.c:67:9: error: implicit declaration of function ‘getentropy’ [-Werror=implicit-function-declaration]</pre>
-			<p>
-				What? getentropy() is absolutely defined, has been since <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html#VERSIONS" target="_blank">glib 2.25</a>, which was back in 2017 for fuck's sake.
-				<br>
-				Apparently that's not good enough. It's 2021, glibc 2.25 was released over 4 years ago by now.
-				<br>
-				<br>
-				So in the end I changed the getentropy() call to syscall() to SYS_getrandom.
-				<br>
-				Should I have banked on people using glibc >2.25 in the first place? Probably not.
-				<br>
-				Realistically, though, I should expect that by now people would be.
-				<br>
-				<br>
-				<i>Maintain your goddamn packages.</i>
+				...
 			</p>
 		</article>
 		<hr>
