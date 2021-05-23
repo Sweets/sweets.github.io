@@ -5,6 +5,10 @@ body {
     margin: auto;
 }
 
+h3 {
+    color: #5c907a;
+}
+
 h3 > span:first-child {
     font-family: monospace;
 }
