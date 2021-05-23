@@ -37,6 +37,10 @@ header {
     display: flex;
 }
 
-header > div {
+header > nav {
     flex-grow: 1;
+}
+
+header > nav > a {
+    margin-right: 16px;
 }
