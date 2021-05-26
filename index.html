@@ -28,7 +28,7 @@
 				<br>
 				Storing timestamps seems like a relatively painless endeavor, just allocate enough space for the timestamp, and you're off to the race(condition)s.
 				<br>
-				Except maybe it isn't the best implementation. I mean, some time in early 2038 UNIX timestamps will overflow, and we'll need to either switch to 64 bit or created a new epoch.
+				Except maybe it isn't the best implementation. I mean, some time in early 2038 UNIX timestamps will overflow, and we'll need to either switch to 64 bit or create a new epoch.
 				<br>
 				<br>
 				It'll basically be Y2K all over again. 0x7fffffff16 will be our demise! Or will it?
@@ -36,11 +36,11 @@
 				Realistically speaking, likely not. What is more likely is developers will start implementing fixes for this overflow before it actually happens, and we won't be ill prepared.
 				<br>
 				<br>
-				But what about another solution? What if we stored datetimes as a string?
+				But what about another solution? What if we stored timestamps as a string?
 				<br>
 				Well, this can be an implementation, and depending on how scalable you want your timestamps to be, maybe the best way to deal with this kind of issue.
 				<br>
-				So, as a little bit of a thought experiment, if we did this, how much space would we need to allocate for our datetime string?
+				So, as a little bit of a thought experiment, if we did this, how much space would we need to allocate for our string?
 				<br>
 				<br>
 				To calculate something like this, we'll need to make some assumptions. Typically, information on a website is stored in a database, and often times it's in SQL.
@@ -49,28 +49,28 @@
 				<br>
 				128 bytes doesn't necessarily sound like a lot, but that's only for a single row. A single record.
 				<br>
-				If we say... store user data, and when a user registered. Well, now we have N * 128 bytes of storage being taken up, where N is the amount of users, assuming we store no other datetimes of course.
+				If we say... store user data, to include when a user registered... Well, now we have N * 128 bytes of storage being taken up, where N is the amount of users, assuming we store no other information of course.
 				<br>
 				<br>
-				You see where I'm going with this, right? So just 8 users deep, and all of the sudden we're taken up a kb of storage for <i>just</i> timestamps.
+				You see where I'm going with this, right? So just 8 users deep, and all of the sudden we're taken up a kilobyte of storage for <i>just</i> timestamps.
 				<br>
 				By the way, do you like gore? I sure hope so.
 				<br>
-				Imagine for a moment that instead of storing a datetime as a string in only a single column, we split up each part into its own dedicated column.
+				Imagine for a moment that instead of storing a timestamp as a string in only a single column, we split up each part into its own dedicated column.
 				<br>
-				Let's be conservative and say that we give each datetime indice... 8 characters to work with at most. And we'll say we only need the seconds, minutes, hours, days, months, and years.
+				Let's be conservative and say that we give each indice... 6 characters to work with at most. And we'll say we only need the seconds, minutes, hours, days, months, and years.
 				<br>
-				Alright, we've got 6 columns, each of them have 6 characters. Remember, one single character takes up 4 bytes. 4 * 6 * 6. Now our single datetime takes 144 bytes.
+				Alright, we've got 6 columns, each of them have 6 characters. Remember, one single character takes up 4 bytes. 4 * 6 * 6. Now our timestamps take up 144 bytes.
 				<br>
 				<br>
 				So given our algorithm of N * 144, we hit 1kb at just 7 users. Not that much of a difference, but we sure won't fucking scale well at all.
 				<br>
-				Now we're taking an ass-ton of space for <i>only</i> datetimes. We haven't even stored more than one, and we didn't calculate storage space for any other columns.
+				Now we're taking a metric ass-ton (abbreviated as AT) of space for <i>only</i> timestamps. We haven't even stored more than one, and we didn't calculate storage space for any other columns.
 				<br>
-				So by the time we add everything else back in, our user table is now taking up more than a metric ass-ton (abbreviated as AT). We're now taking kilo-ass-tons of storage space. kAT.
+				So by the time we add everything else back in, our user table is now taking up more than an AT. We're now taking kilo-ass-tons of storage space. kAT.
 				<br>
 				<br>
-				So we're taking a kAT of space, and we haven't even considered actual usage with this.
+				So we're taking severak kATs of space, and we haven't even considered actual usage with this.
 				<br>
 				Time to query the database.
 			</p>
@@ -96,15 +96,15 @@
 				<br>
 				Time to write up a bit of code that iterates over every record in the database, parses each column related to time, concatenates it all, converts it to a proper UNIX timestamp,
 				<br>
-				stores it properly, then commits it to the database. Then you make sure everything is good, commit to the database, or rollback if not.
+				stores it properly, then stores it in the database. Then you make sure everything is good, commit to the database, or rollback if not.
 				<br>
 				<br>
 				Don't get me wrong; I'm not saying that storing a timestamp as a string is necessarily a bad thing, but don't be like Bill and assume it's going to be the best approach.
 				<br>
 				<br>
-				Thankfully this story is <i>only</i> fictional. I pity the person who once had to, or one day will have to, fix this completely fictional issue, that doesn't happen more than you'd think in web development.
+				Thankfully this story is <i>only</i> fictional. I pity the person who once had to, or one day will have to, fix this completely fictional issue.
 				<br>
-				Remember, sometimes the best approach is the one most used. We don't all need to be innovators.
+				Remember, kids, <i>sometimes the best approach is the one most used</i>. We don't all need to be innovators.
 			</p>
 		</article>
 		<hr>
