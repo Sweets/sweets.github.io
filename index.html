@@ -15,6 +15,98 @@
 			<iframe sandbox="allow-scripts allow-top-navigation" loading=lazy src="https://circle.comfi.es/f/lost-in-walmart.blog/"></iframe>
 		</header>
 		<hr>
+		<a id="0x05"></a>
+		<article>
+			<h3><span>0x05</span> &mdash; <i>a fictional story about web development gore</i></h3>
+			<p>
+				A long time ago, in a server far far away existed a web developer and a really interesting codebase. You are our savior in this story.
+				<br>
+				When you typically think of timestamps, chances are you think of a UNIX timestamp.
+				<br>
+				A 32-bit integer counting the amount of seconds that have passed since January 1st, 1970.
+				<br>
+				<br>
+				Storing timestamps seems like a relatively painless endeavor, just allocate enough space for the timestamp, and you're off to the race(condition)s.
+				<br>
+				Except maybe it isn't the best implementation. I mean, some time in early 2038 UNIX timestamps will overflow, and we'll need to either switch to 64 bit or created a new epoch.
+				<br>
+				<br>
+				It'll basically be Y2K all over again. 0x7fffffff16 will be our demise! Or will it?
+				<br>
+				Realistically speaking, likely not. What is more likely is developers will start implementing fixes for this overflow before it actually happens, and we won't be ill prepared.
+				<br>
+				<br>
+				But what about another solution? What if we stored datetimes as a string?
+				<br>
+				Well, this can be an implementation, and depending on how scalable you want your timestamps to be, maybe the best way to deal with this kind of issue.
+				<br>
+				So, as a little bit of a thought experiment, if we did this, how much space would we need to allocate for our datetime string?
+				<br>
+				<br>
+				To calculate something like this, we'll need to make some assumptions. Typically, information on a website is stored in a database, and often times it's in SQL.
+				<br>
+				In a UTF8 encoded db, a single character is given 4 bytes of memory. If we use type varchar(32) to store a timestamp as a string, we'll have 128 bytes to work with.
+				<br>
+				128 bytes doesn't necessarily sound like a lot, but that's only for a single row. A single record.
+				<br>
+				If we say... store user data, and when a user registered. Well, now we have N * 128 bytes of storage being taken up, where N is the amount of users, assuming we store no other datetimes of course.
+				<br>
+				<br>
+				You see where I'm going with this, right? So just 8 users deep, and all of the sudden we're taken up a kb of storage for <i>just</i> timestamps.
+				<br>
+				By the way, do you like gore? I sure hope so.
+				<br>
+				Imagine for a moment that instead of storing a datetime as a string in only a single column, we split up each part into its own dedicated column.
+				<br>
+				Let's be conservative and say that we give each datetime indice... 8 characters to work with at most. And we'll say we only need the seconds, minutes, hours, days, months, and years.
+				<br>
+				Alright, we've got 6 columns, each of them have 6 characters. Remember, one single character takes up 4 bytes. 4 * 6 * 6. Now our single datetime takes 144 bytes.
+				<br>
+				<br>
+				So given our algorithm of N * 144, we hit 1kb at just 7 users. Not that much of a difference, but we sure won't fucking scale well at all.
+				<br>
+				Now we're taking an ass-ton of space for <i>only</i> datetimes. We haven't even stored more than one, and we didn't calculate storage space for any other columns.
+				<br>
+				So by the time we add everything else back in, our user table is now taking up more than a metric ass-ton (abbreviated as AT). We're now taking kilo-ass-tons of storage space. kAT.
+				<br>
+				<br>
+				So we're taking a kAT of space, and we haven't even considered actual usage with this.
+				<br>
+				Time to query the database.
+			</p>
+			<pre>SELECT `seconds`,`minutes`,`hours`,`days`,`months`,`years`,`uid`,`username`,... FROM `pain_and_suffering.users` WHERE 1;</pre>
+			<p>
+				Could you imagine having to write that query several times over?
+				<br>
+				Don't worry, you don't have to, because in our fictional story, Bill did it for you.
+				<br>
+				Bill got fired by the way. Google didn't like how badly their database was running. And it's your lucky day, because site-wide, you get to fix this.
+				<br>
+				Oh, no, Google isn't running a query generator or anything. They haven't moved onto more modern technologies yet because they don't know how secure something like Laravel is or isn't.
+				<br>
+				<br>
+				This might be a good time to mention that if we just used the datetime column type--which only uses 8 bytes--we would only be at N * 8. We'd hit 125 user records before we hit a kilobyte.
+				<br>
+				Just some food for thought; we haven't even hit a single AT of taken up storage space yet by using the datetime type.
+				<br>
+				<br>
+				You've been tasked now with fixing every database query, as well as every bit of source code that deals with Bill's original database schema.
+				<br>
+				So what do you do? You start a transaction.
+				<br>
+				Time to write up a bit of code that iterates over every record in the database, parses each column related to time, concatenates it all, converts it to a proper UNIX timestamp,
+				<br>
+				stores it properly, then commits it to the database. Then you make sure everything is good, commit to the database, or rollback if not.
+				<br>
+				<br>
+				Don't get me wrong; I'm not saying that storing a timestamp as a string is necessarily a bad thing, but don't be like Bill and assume it's going to be the best approach.
+				<br>
+				<br>
+				Thankfully this story is <i>only</i> fictional. I pity the person who once had to, or one day will have to, fix this completely fictional issue, that doesn't happen more than you'd think in web development.
+				<br>
+				Remember, sometimes the best approach is the one most used. We don't all need to be innovators.
+			</p>
+		</article>
 		<a id="0x04"></a>
 		<article>
 			<h3><span>0x04</span> &mdash; <i>close the window, i'm programming</i></h3>
