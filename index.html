@@ -15,6 +15,56 @@
 			<iframe sandbox="allow-scripts allow-top-navigation" loading=lazy src="https://circle.comfi.es/f/lost-in-walmart.blog/"></iframe>
 		</header>
 		<hr>
+		<a id="0x07"></a>
+		<article>
+			<h3><span>0x07</span> &mdash; <i>systemdo or systemdon't</i></h3>
+			<p>
+				Often times in the *nix community, people will tell you things like "systemd is bad" and that you shouldn't use it.
+				<br>
+				Then they will go on a triad of reasons why systemd is bad.
+				<br>
+				Now, to any normal or informed user, some of these arguments against systemd may be considered valid.
+				<br>
+				But to any other user, in particular users new to *nix, these are horribly misleading reasons to use something other than systemd.
+				<br>
+				The latter crowd is who this blog entry is for.
+				<br>
+				<br>
+				Systemd calls itself a "software suite." So, as such, it provides many tools--few of which are actually simple--that are useful in the runtime of the operating system.
+				<br>
+				None of systemd's components are inherently bad.
+				<br>
+				The problem with systemd is that the entirety of the software suite is executed as pid 1.
+				<br>
+				The first process is the one that on many systems is the init system. It is the highest parent process in the hierarchy, as it is executed by the kernel.
+				<br>
+				Now in some applications, this is what you may want. You may want a reliable and battle tested process running as the init, especially on servers.
+				<br>
+				You may even want it on a desktop as well, for ease of use.
+				<br>
+				The biggest problem with being told what init to use and what not to use is that what works for others may not work for you.
+				<br>
+				<br>
+				A lot of people have asked me what init they should use. The simplest answer, use the one that works. If systemd works for your system, why replace it?
+				<br>
+				On top of that, some distributions of Linux almost hard depend on systemd. For example, <a href="https://archlinux.org/" target="_blank">Arch Linux</a>, where the entire
+				<br>
+				system is built on the premise of using systemd. Packages that are installed have appropiate unit files for systemd. Replacing it, while it can be done,
+				<br>
+				is a tidious and quite annoying process.
+				<br>
+				<br>
+				So all of this is to say: if you're the user who is new to *nix, and you don't know what init to use, don't change your init at all.
+				<br>
+				To quote a friend of mine, "<i>Linux users are all about freedom of choice, right up until someone's choice differs from theirs</i>."
+				<br>
+				<br>
+				And on the opposite side of the spectrum, if you're the redbilled based user who is preaching to the newer, pure linux users:
+				<br>
+				<i>Shut the fuck up</i>. Let them learn the pros or cons of the software themselves. After all, for as much as I dislike systemd myself, <i>it just works</i>.
+			</p>
+		</article>
+		<hr>
 		<a id="0x06"></a>
 		<article>
 			<h3><span>0x06</span> &mdash; <i>a love letter to forums</i></h3>
