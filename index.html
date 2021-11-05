@@ -15,6 +15,122 @@
 			<iframe sandbox="allow-scripts allow-top-navigation" loading=lazy src="https://circle.comfi.es/f/lost-in-walmart.blog/"></iframe>
 		</header>
 		<hr>
+		<a id="0x0f"></a>
+		<article>
+			<h3><span>0x0f</span> &mdash; <i>sometimes being unprepared prepares you the best</i></h3>
+			<p>
+				I've been programming for 10 years now. In fact, I just hit the 10 year mark.
+				<br>
+				In my experience, I've found several means of planning.
+				<br>
+				<br>
+				Sometimes I like to board things, sometimes I modularize functionality of something,
+				<br>
+				hell, even comments to my future self helps.
+				<br>
+				<br>
+				One thing I've come to realize though is sometimes the best way to prepare yourself to write
+				<br>
+				something is to not prepare at all.
+				<br>
+				<br>
+				Hear me out.
+				<br>
+				My most recent project, <a>mxfw</a>. The program is entirely just a bridge between a user and macOS' window server,
+				<br>
+				and users take advantage of the API that it provides.
+				<br>
+				<br>
+				Here's an example of responding to window events for only one specific window type.
+				<br>
+				<pre>
+mx.window { bundle = 'com.apple.Terminal' }
+	:on("created", function(window)
+		print("Hello, World!")
+	end)
+	:on("closed", function(window)
+		print("Goodbye, World.")
+	end)
+				</pre>
+				<br>
+				<br>
+				Now, I spent quite a few days trying to figure out how I would implement that sort of API.
+				<br>
+				It was actually quite a difficult thing to do because it provides several challenges.
+				<br>
+				Firstly, the function mx.window(). What should it return?
+				<br>
+				The obvious answer is some sort of event handler, or something that contains :on().
+				<br>
+				And yes, that's an obvious one, but look at the actual function call for :on().
+				<br>
+				It takes two parameters, the event string, and a callback.
+				<br>
+				Mind you, this has to be implemented in the Objective C++ part of the program.
+				<br>
+				<br>
+				More than that, what if no rule is present?
+				<br>
+				And since it's in Objective C++, and the Lua API it uses can't explicitly provide transient data
+				<br>
+				that <i>originated</i> from the parent, then what?
+				<br>
+				<br>
+				In addition to this, how do I store these rules? How do I map them, such that the event emitter
+				<br>
+				in mxfw knows to <i>only</i> emit an event for this window if the rule applies?
+				<br>
+				<br>
+				These are all very good questions that have been asked. And more importantly, ultimately,
+				<br>
+				my solution that I ended up implementing was far simpler and more eloquent than what I had boarded out prior.
+				<br>
+				<br>
+				The solution I came up with was that mx.window() was actually just a method that would
+				<br>
+				create rules and store them in a map. This map would map window rules to a vector of structureas.
+				<br>
+				Said structures contained two children, an event and a callback. This was, in essence, a map, without the
+				<br>
+				super large overhead from C++'s STL.
+				<br>
+				<br>
+				When an event for a window is emitted, it checks to see if any rules apply. If they do, then
+				<br>
+				it looks through the vector of event-callback mappings and looks for the event that was emitted.
+				<br>
+				If one is found, then it calls the mapped callback. If not, who gives a shit. Discard. Move on.
+				<br>
+				<br>
+				See, the problem wasn't that I wasn't in the right mindset. The problem was that
+				<br>
+				I was overanalyzing the fuck out of the problem. I was too wrapped around thinking that
+				<br>
+				the mx.window() function should return some sort of grand object that contained all window data,
+				<br>
+				or that I needed to have a bitwise AND of all the events that a window responds to and then check a large
+				<br>
+				look up table and what have you.
+				<br>
+				<br>
+				Moral of the story; the bigger picture was <i>there</i>. And I was thinking too large, too complex.
+				<br>
+				Even breaking the problem down didn't help me at all.
+				<br>
+				<br>
+				And maybe, just maybe, you're going through something similar to me in concept.
+				<br>
+				Maybe there's a problem that you just can't figure out cognitively.
+				<br>
+				<br>
+				I'm here to tell you that you don't need to.
+				<br>
+				Just start writing. The implementation will fall into place.
+				<br>
+				And if you don't like it, that's fine. At the end of the day, you can always refactor.
+			</p>
+		</article>
+		<hr>
 		<a id="0x0e"></a>
 		<article>
 			<h3><span>0x0e</span> &mdash; <i>i am bad at naming things.</i></h3>
